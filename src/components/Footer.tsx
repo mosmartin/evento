@@ -18,7 +18,7 @@ export default function Footer() {
             {routes.map(({ label, href }) => (
               <li
                 key={href}
-                className="text-white/50 hover:text-white transition"
+                className="text-white/50 hover:text-accent transition"
               >
                 <Link href={href}>{label}</Link>
               </li>

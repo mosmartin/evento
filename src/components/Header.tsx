@@ -24,7 +24,7 @@ export default function Header() {
             <li
               key={href}
               className={clsx(
-                "hover:text-white flex items-center relative transition",
+                "hover:text-accent flex items-center relative transition",
                 {
                   "text-white": pathName === href,
                   "text-white/50": pathName !== href,
