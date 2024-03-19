@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { EventoEvent } from "./types";
+import prisma from "./db";
+import { notFound } from "next/navigation";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,22 +15,29 @@ export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function fetchEvents(city: string): Promise<EventoEvent[]> {
-  const res = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events?city=${city}`
-  );
-
-  const events: EventoEvent[] = await res.json();
+export async function fetchEvents(city: string) {
+  const events = await prisma.eventoEvent.findMany({
+    where: {
+      city: city === "all" ? undefined : capitalize(city),
+    },
+    orderBy: {
+      date: "asc",
+    },
+  });
 
   return events;
 }
 
-export async function fetchEvent(slug: string): Promise<EventoEvent> {
-  const res = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
-  );
+export async function fetchEvent(slug: string) {
+  const event = await prisma.eventoEvent.findUnique({
+    where: {
+      slug,
+    },
+  });
 
-  const event: EventoEvent = await res.json();
+  if (!event) {
+    return notFound();
+  }
 
   return event;
 }
