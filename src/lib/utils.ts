@@ -1,6 +1,35 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { EventoEvent } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
+}
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function fetchEvents(city: string): Promise<EventoEvent[]> {
+  const res = await fetch(
+    `https://bytegrad.com/course-assets/projects/evento/api/events?city=${city}`
+  );
+
+  const events: EventoEvent[] = await res.json();
+
+  return events;
+}
+
+export async function fetchEvent(slug: string): Promise<EventoEvent> {
+  const res = await fetch(
+    `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
+  );
+
+  const event: EventoEvent = await res.json();
+
+  return event;
 }
