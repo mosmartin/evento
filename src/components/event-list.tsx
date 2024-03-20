@@ -4,12 +4,12 @@ import PaginationControls from "./pagination-controls";
 
 type EventListProps = {
   city: string;
-  page: number;
+  page?: number;
 };
 
 export default async function EventList({
   city,
-  page,
+  page = 1,
 }: Readonly<EventListProps>) {
   const { events, totalCount } = await fetchEvents(city, page);
   const prevPath = page > 1 ? `/events/${city}/?page=${page - 1}` : "";
