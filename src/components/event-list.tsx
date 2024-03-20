@@ -1,5 +1,5 @@
+import { fetchEvents } from "@/lib/server-utils";
 import EventCard from "./event-card";
-import { fetchEvents } from "@/lib/utils";
 import PaginationControls from "./pagination-controls";
 
 type EventListProps = {
