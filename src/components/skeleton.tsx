@@ -4,7 +4,7 @@ type SkeletonProps = {
   className?: string;
 };
 
-export default function Skeleton({ className }: SkeletonProps) {
+export default function Skeleton({ className }: Readonly<SkeletonProps>) {
   return (
     <div
       className={cn(

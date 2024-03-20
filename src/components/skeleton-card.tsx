@@ -4,7 +4,7 @@ type SkeletonCardProps = {
   className?: string;
 };
 
-export default function SkeletonCard({ className }: SkeletonCardProps) {
+export default function SkeletonCard({ className }: Readonly<SkeletonCardProps>) {
   return (
     <div className="space-y-4">
       <Skeleton className="h-12 w-12 rounded-full" />
